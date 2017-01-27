@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="HyperFileChanger.Views.ImageInformation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HyperFileChanger.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:magick="using:HyperFileChanger.MainViewModel"
+    mc:Ignorable="d">
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Height="auto" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBox Text="Höhe" BorderThickness="0" IsReadOnly="True"/>
+                <TextBox Text="Breite" BorderThickness="0" IsReadOnly="True" Width="auto" />
+                <TextBox Text="" BorderThickness="0" IsReadOnly="True"/>
+                <TextBox Text="Erstellt" BorderThickness="0" IsReadOnly="True"/>
+                <TextBox Text="Ort" BorderThickness="0" IsReadOnly="True"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBox Text="{Binding Files.Imagei.Height, Mode=OneWay, Source={StaticResource Locator}}"  BorderThickness="1" Height="auto" HorizontalAlignment="Stretch" Width="auto" />
+                <TextBox Text="{Binding Files.Imagei.Width, Mode=OneWay, Source={StaticResource Locator}}" BorderThickness="1" Height="auto" HorizontalAlignment="Stretch"  Width="auto" Name="DataTyp"/>
+                <TextBox Text="{Binding Files.MapperImage.PixelHeight, Mode=TwoWay, Source={StaticResource Locator}}" BorderThickness="1" Height="auto" HorizontalAlignment="Stretch"  Width="auto" Name="Blubb" IsReadOnly="True"/>
+                <TextBox Text="{Binding Files.Time, Mode=TwoWay, Source={StaticResource Locator}}" BorderThickness="1" Height="auto" HorizontalAlignment="Stretch"  Width="auto"/>
+                <TextBox Text="{Binding Files.Paths, Mode=TwoWay, Source={StaticResource Locator}}" BorderThickness="1" Height="auto" HorizontalAlignment="Stretch"  Width="auto"/>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
