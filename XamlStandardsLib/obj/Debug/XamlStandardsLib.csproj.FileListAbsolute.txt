@@ -1,0 +1,17 @@
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\bin\Debug\XamlStandardsLib.dll
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\bin\Debug\XamlStandardsLib.pdb
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\bin\Debug\XamlStandardsLib.pri
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\XamlStandardsLib.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\XamlStandardsLib.dll
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\XamlStandardsLib.pdb
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\priconfig.xml
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\priconfig.xml.intermediate
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\layout.resfiles
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\layout.resfiles.intermediate
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\resources.resfiles
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\resources.resfiles.intermediate
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\pri.resfiles
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\pri.resfiles.intermediate
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\qualifiers.txt
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\qualifiers.txt.intermediate
+C:\Users\user\Desktop\Docs\Python-Progs\XamlStandardsLib\XamlStandardsLib\obj\Debug\MultipleQualifiersPerDimensionFound.txt
