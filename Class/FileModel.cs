@@ -14,6 +14,9 @@ using Windows.Data.Pdf;
 using ImageMagick;
 using Windows.UI.Xaml.Controls;
 using System.Diagnostics;
+using Windows.Media.Core;
+using Windows.UI.Text;
+using System.Collections.ObjectModel;
 
 namespace HyperFileChanger.Class
 {
@@ -175,6 +178,21 @@ namespace HyperFileChanger.Class
             }
         }
 
+        MediaSource mSource;
+        public MediaSource MSource
+        {
+            get { return mSource; }
+            set
+            {
+                if (mSource != value)
+                {
+                    mSource = value;
+
+                    this.OnPropertyChanged();
+                    
+                }
+            }
+        }
         ImageModel comeon;       
         public ImageModel Comeon
         {
@@ -201,7 +219,7 @@ namespace HyperFileChanger.Class
                 }
             }
         } // Bildinformationen
-        DocumentProperties Document { get; set; } //Dokumentinformation
+        DocumentProperties Document { get; set; } //Dokumentinformation        
         MusicProperties Music { get; set; } //Musikinformation
         BitmapImage mapperImage;
         public BitmapImage MapperImage
@@ -231,34 +249,73 @@ namespace HyperFileChanger.Class
         } //PDF-Dokument Ablage
         StorageFile Files { get; set; } // Ausgewählte Datei aus dem Dateipicker
         FileInfo FileInformation { get; set; } // Weitere Informationen zur Datei
-        MagickImage imageManipulation;
-        public MagickImage ImageManipulation
+        StorageFolder folder;
+        public StorageFolder Folder
         {
-            get { return imageManipulation; }
+            get { return folder; }
             set
             {
-                if (imageManipulation != value)
+                if(folder != value)
                 {
-                    imageManipulation = value;
+                    folder = value;
                     this.OnPropertyChanged();
                 }
             }
         }
-        MagickImageInfo imageInfo;
-        public MagickImageInfo ImageInfo
-        {
-            get { return imageInfo; }
-            set
+
+        ObservableCollection<StorageFile> filesliste;
+        public ObservableCollection<StorageFile> FileslisteObserv
+        { get { return filesliste; }
+          set
             {
-                if(imageInfo != value)
+                if(filesliste != value)
                 {
-                    imageInfo = value;
+                    filesliste = value;
                     this.OnPropertyChanged();
                 }
             }
         }
-        public IRandomAccessStream fileStream { get; set; }
         
+        
+        IReadOnlyList<IStorageItem> filesList;
+        public IReadOnlyList<IStorageItem> FilesList
+        {
+            get { return filesList; }
+            set
+            {
+                if (filesList != value)
+                {
+                    filesList = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+        ITextDocument textDocument;
+        public ITextDocument TextDocument
+        {
+            get { return textDocument; }
+            set
+            {
+                if (textDocument != value)
+                {
+                    textDocument = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
+        IRandomAccessStream FileStream;
+        public IRandomAccessStream fileStream
+        {
+            get { return FileStream; }
+            set
+            {
+                if (FileStream != value)
+                {
+                    FileStream = value;
+                    this.OnPropertyChanged();
+                }
+            }
+        }
 
         public async Task PickFile()
         {
@@ -273,14 +330,18 @@ namespace HyperFileChanger.Class
             {
                 
                 Files = await picker.PickSingleFileAsync();
-
+                Folder = await Files.GetParentAsync();
+                
                 Paths = Files.Path;
+                
 
                 var basisEigenschaften = await Files.GetBasicPropertiesAsync();
 
                 Name = Files.DisplayName;
                 DateiTyp = Files.DisplayType;
                 DateCreated = Files.DateCreated.DateTime;
+
+               
 
                 Größe = basisEigenschaften.Size;
                
@@ -300,7 +361,7 @@ namespace HyperFileChanger.Class
                 }
                 else if (DateiTyp == "Adobe Acrobat Document")
                 {
-                    using (IRandomAccessStream fileStream = await Files.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                    using ( fileStream = await Files.OpenAsync(Windows.Storage.FileAccessMode.Read))
                     {
 
                         PDF = await PdfDocument.LoadFromStreamAsync(fileStream);
@@ -309,10 +370,11 @@ namespace HyperFileChanger.Class
 
                     }
                 }
-                else if(DateiTyp == "Textdokument")
+                else if( DateiTyp == "Textdokument" )
                 {
-                    using (IRandomAccessStream fileStream = await Files.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                    using ( fileStream = await Files.OpenAsync(Windows.Storage.FileAccessMode.Read))
                     {
+                        TextDocument.LoadFromStream(TextSetOptions.FormatRtf, fileStream);
                         Document = await Files.Properties.GetDocumentPropertiesAsync();
                         using (DataReader textReader = new DataReader(fileStream))
                         {
@@ -323,6 +385,19 @@ namespace HyperFileChanger.Class
 
                     }
                 }
+                else if( DateiTyp == "MP3-Datei")
+                {
+                    
+                    using (fileStream = await Files.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                    {
+
+                        Music = await Files.Properties.GetMusicPropertiesAsync();
+                        MSource = MediaSource.CreateFromStream(fileStream, "audio / mpeg");
+                        
+                    }
+                    
+                }
+                
             }
             catch (NullReferenceException)
             {
@@ -333,34 +408,37 @@ namespace HyperFileChanger.Class
 
 
         }
-        public async Task CheckFile()
-        {
-
-
-
-            Document = await Files?.Properties.GetDocumentPropertiesAsync();
-            
-
-
-
-            //Music = await Files?.Properties.GetMusicPropertiesAsync();
-
-
-        }
-        /*
-        public async Task ImageManipulationBasis(IRandomAccessStream fileStream)
+        public async Task GetPartentFolder(ObservableCollection<IStorageItem> wuhu)
         {
 
             
-            // Read from stream
-            /*
-            using (MemoryStream memStream = (MemoryStream)fileStream)
+            FilesList = await Folder.GetItemsAsync();
+            foreach (var item in FilesList)
             {
-                ImageInfo = new MagickImageInfo(memStream);
+                //FileslisteObserv.Add(item);
             }
-
-        }*/
-
+            
+        }
+        public async Task PickFolder()
+        {
+            try
+            {
+                FolderPicker picker = new FolderPicker();
+                picker.SuggestedStartLocation = PickerLocationId.Desktop;
+                picker.FileTypeFilter.Add("*");
+                Folder = await picker.PickSingleFolderAsync();
+                FilesList = await Folder.GetItemsAsync();
+                
+                foreach (var item in FilesList)
+                {
+                    FileslisteObserv.Add(item as StorageFile);
+                }
+            }
+            catch(NullReferenceException)
+            {
+                return;
+            }
+        }
 
     }
 }
