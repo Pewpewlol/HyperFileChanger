@@ -23,7 +23,7 @@ namespace HyperFileChanger.Views
     /// </summary>
     public sealed partial class ImageInformation : Page
     {
-        MagickImageInfo imageInfo;
+        
         public ImageInformation()
         {
             this.InitializeComponent();

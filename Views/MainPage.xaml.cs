@@ -38,7 +38,7 @@ namespace HyperFileChanger
         {
             
         }
-
+        
         private void NaviHelper(object sender, TextChangedEventArgs e)
         {
             if(DataTyp.Text == "JPG-Datei" || DataTyp.Text == "PNG-Datei")
@@ -51,7 +51,13 @@ namespace HyperFileChanger
             {
                 ViewFrame.Navigate(typeof(TextFrame));
             }
-            
+            else if (DataTyp.Text == "MP3-Datei")
+            {
+                ViewFrame.Navigate(typeof(MusicFrame));
+                
+            }
         }
+
+        
     }
 }
